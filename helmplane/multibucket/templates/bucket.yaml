@@ -1,0 +1,12 @@
+{{range .Values.names}}
+---
+apiVersion: s3.aws.upbound.io/v1beta1
+kind: Bucket
+metadata:
+  name: "{{$.Values.bucketPrefix}}-{{$.Release.Name}}-{{ . }}"
+spec:
+  forProvider:
+    region: "{{$.Values.bucketRegion}}"
+  providerConfigRef:
+    name: default
+{{end}}

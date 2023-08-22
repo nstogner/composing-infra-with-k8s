@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: public-cloud
+  namespace: metacontroller
+data:
+  BUCKET_PREFIX: kljasdasdkvicoxu-
+  BUCKET_REGION: us-east-2
