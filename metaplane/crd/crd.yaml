@@ -20,7 +20,7 @@ spec:
             spec:
               type: object
               properties:
-                names:
+                backups:
                   type: array
                   items:
                     type: string

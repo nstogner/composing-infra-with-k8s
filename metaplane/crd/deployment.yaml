@@ -20,10 +20,9 @@ spec:
         - name: controller
           image: python:3.10.8
           command: ["python", "/hooks/sync.py"]
-          envFrom:
-            - configMapRef:
-                name: public-cloud
           volumeMounts:
+            - name: config
+              mountPath: /config
             - name: hooks
               mountPath: /hooks
           resources:
@@ -37,3 +36,6 @@ spec:
         - name: hooks
           configMap:
             name: multibuckets
+        - name: config
+          configMap:
+            name: cloud

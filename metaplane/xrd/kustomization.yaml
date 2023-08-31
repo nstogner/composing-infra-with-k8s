@@ -1,11 +1,10 @@
 resources:
-  - crd.yaml
+  - xrd.yaml
   - controller.yaml
   - service.yaml
   - deployment.yaml
-  - config.yaml
 configMapGenerator:
-  - name: multibuckets
+  - name: xmultibuckets
     namespace: metacontroller
     files:
       - src/sync.py

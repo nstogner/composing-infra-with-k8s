@@ -1,0 +1,27 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xmultibuckets.example.org
+spec:
+  group: example.org
+  claimNames:
+    kind: MultiBucket
+    plural: multibuckets
+  names:
+    kind: xMultiBucket
+    plural: xmultibuckets
+  versions:
+  - name: v1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              backups:
+                type: array
+                items:
+                  type: string

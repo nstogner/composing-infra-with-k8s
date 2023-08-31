@@ -1,0 +1,17 @@
+apiVersion: metacontroller.k8s.io/v1alpha1
+kind: CompositeController
+metadata:
+  name: xmultibuckets
+spec:
+  resyncPeriodSeconds: 5
+  generateSelector: true
+  parentResource:
+    apiVersion: example.org/v1
+    resource: xmultibuckets
+  childResources:
+    - apiVersion: s3.aws.upbound.io/v1beta1
+      resource: buckets
+  hooks:
+    sync:
+      webhook:
+        url: http://xmultibuckets.metacontroller/sync

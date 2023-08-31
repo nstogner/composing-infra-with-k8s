@@ -32,18 +32,21 @@ crossplane-aws:
 
 .PHONY: metaplane
 metaplane:
-	kubectl apply -k ./metaplane
+	kubectl apply -f ./metaplane/config.yaml
+	kubectl apply -k ./metaplane/crd
+	kubectl apply -k ./metaplane/xrd
 
 .PHONY: fluxcd
 fluxcd:
 	flux install
+	kubectl wait --for condition=established --timeout=10s crd/gitrepositories.source.toolkit.fluxcd.io
 
 .PHONY: fluxcd-config
 fluxcd-config:
 	kubectl apply -f ./setup/fluxcd/
 
 .PHONY: up
-up: kind metacontroller crossplane crossplane-aws metaplane fluxcd
+up: kind metacontroller crossplane crossplane-aws metaplane fluxcd fluxcd-config
 
 .PHONY: down
 down:

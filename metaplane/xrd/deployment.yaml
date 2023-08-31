@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: xmultibuckets
+  namespace: metacontroller
+spec:
+  strategy:
+    type: Recreate
+  replicas: 1
+  selector:
+    matchLabels:
+      app: xmultibuckets
+  template:
+    metadata:
+      labels:
+        app: xmultibuckets
+    spec:
+      terminationGracePeriodSeconds: 3
+      containers:
+        - name: controller
+          image: python:3.10.8
+          command: ["python", "/hooks/sync.py"]
+          volumeMounts:
+            - name: config
+              mountPath: /config
+            - name: hooks
+              mountPath: /hooks
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 256Mi
+      volumes:
+        - name: hooks
+          configMap:
+            name: xmultibuckets
+        - name: config
+          configMap:
+            name: cloud

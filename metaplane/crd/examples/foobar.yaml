@@ -3,7 +3,7 @@ kind: MultiBucket
 metadata:
   name: foobar
 spec:
-  names:
+  backups:
   - foo
   - bar
 
